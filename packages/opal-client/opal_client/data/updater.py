@@ -241,7 +241,7 @@ class DefaultDataUpdater(DataUpdater):
         headers = {}
         if self._extra_headers is not None:
             headers = self._extra_headers.copy()
-        headers['Accept'] = "application/json"
+        headers["Accept"] = "application/json"
 
         try:
             response = await self._load_policy_data_config(url, headers)
@@ -257,7 +257,9 @@ class DefaultDataUpdater(DataUpdater):
             logger.exception(f"Failed to load data sources config")
             raise
 
-    async def _load_policy_data_config(self, url: str, headers) -> aiohttp.ClientResponse:
+    async def _load_policy_data_config(
+        self, url: str, headers
+    ) -> aiohttp.ClientResponse:
         async with ClientSession(headers=headers) as session:
             return await session.get(url, **self._ssl_context_kwargs)
 
@@ -527,7 +529,9 @@ class DefaultDataUpdater(DataUpdater):
                     policy_data = result
                     # Create a report on the data-fetching
                     report = DataEntryReport(
-                        entry=entry, hash=DataUpdater.calc_hash(policy_data), fetched=True
+                        entry=entry,
+                        hash=DataUpdater.calc_hash(policy_data),
+                        fetched=True
                     )
 
                     try:
